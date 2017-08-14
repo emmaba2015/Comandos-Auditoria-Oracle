@@ -1,0 +1,10 @@
+-- Auditar inicio de sesion (El comando anterior auditará tanto los intentos fallidos como los aciertos.)
+audit session;
+
+-- Para auditar sólo los intentos fallidos utilizaremos el comando:
+
+audit session whenever not successful;
+
+-- Para auditar sólo las conexiones correctas utilizaremos el comando:
+
+audit session whenever successful;
