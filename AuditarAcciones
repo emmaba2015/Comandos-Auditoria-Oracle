@@ -1,0 +1,8 @@
+--Este comando activará la auditoría de las acciones: create role, alter role, drop role y set role.
+
+audit role;
+
+--Se puede ser más selectivo, por ejemplo, si queremos auditar a un usuario concreto cuando realiza la acción "update" ejecutaremos el 
+  siguiente comando:
+
+audit update table by nombre_usuario;
