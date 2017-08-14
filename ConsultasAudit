@@ -1,0 +1,23 @@
+--Auditoría de inicio de sesión utilizaremos la siguiente consulta SQL:
+
+select OS_Username Usuario_SO, 
+  Username Usuario_Oracle, Terminal ID_Terminal,
+  DECODE (Returncode, '0', 'Conectado', '1005', 'Fallo - Null', 
+  1017, 'Fallo', Returncode) Tipo_Suceso,
+  TO_CHAR(Timestamp, 'DD-MM-YY HH24:MI:SS') Hora_Inicio_Sesion,
+  TO_CHAR(Logoff_Time, 'DD-MM-YY HH24:MI:SS') Hora_Fin_Sesion
+from DBA_AUDIT_SESSION;
+
+--Para el caso de la auditoría de acción utilizaremos la siguiente consulta SQL:
+
+select OS_Username Usuario_SO, 
+  Username Usuario_Oracle, Terminal ID_Terminal,
+  Owner Propietario_Objeto,
+  Obj_Name Nombre_Objeto, 
+  Action_Name Accion,
+  DECODE (Returncode, '0', 'Realizado', 'Returncode') Tipo_Suceso,
+  TO_CHAR (Timestamp,  'DD-MM-YY HH24:MI:SS') Hora
+from DBA_AUDIT_OBJECT;
+
+
+
