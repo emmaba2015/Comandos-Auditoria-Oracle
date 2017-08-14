@@ -1,0 +1,8 @@
+-- Para desactivar la auditoría ejecutaremos el comando:
+
+noaudit session by alonso;
+
+-- Desactivaría el comando "audit session",
+
+noaudit sesión;
+
