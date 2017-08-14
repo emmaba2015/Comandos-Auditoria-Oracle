@@ -1,0 +1,12 @@
+--Para auditar los "insert" realizados sobre la tabla "facturacion" por acceso, el comando será:
+
+audit insert on FACTURACION by access;
+
+--Para auditar todas las acciones realizadas en la tabla "contabilidad" por sesión utilizaremos el siguiente comando:
+
+audit all on CONTABILIDAD by session;
+
+--Para auditar las eliminaciones de registros de la tabla "nóminas":
+
+audit delete NOMINAS by access;
+
