@@ -1,0 +1,14 @@
+-- Primero vemos el valor de audit_trail para ver si se encuentra o no activada:
+
+select name, value 
+from v$parameter 
+where name like 'audit_trail';
+
+-- Para activar la auditoría:
+
+ALTER SYSTEM SET audit_trail = "DB" SCOPE=SPFILE;
+
+-- Para desactivar la auditoría ejecutaremos el siguiente comando:
+
+ALTER SYSTEM SET audit_trail = "NONE" SCOPE=SPFILE;
+
