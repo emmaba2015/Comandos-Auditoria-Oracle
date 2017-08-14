@@ -1,0 +1,7 @@
+-- Para ver todos las vistas de auditoria disponibles 
+
+SELECT view_name
+FROM dba_views
+WHERE view_name LIKE '%AUDIT%'
+ORDER BY view_name;
+
