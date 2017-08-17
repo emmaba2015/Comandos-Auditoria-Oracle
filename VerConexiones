@@ -1,0 +1,38 @@
+-- INFORMACIÓN DE CONEXIÓN A LA BASE DE DATOS
+
+SELECT SID,            -- Identificador de sesión
+       osuser,         -- Usuario de sistema operativo
+       username,       -- Usuario de base de datos
+       machine,        -- Máquina desde la que se realiza la conexión
+       program,        -- Programa, que realiza la conexión
+       logon_time,     -- Hora de conexión
+       Lockwait        -- Identifica si hay bloqueo
+  FROM v$session 
+ ORDER BY osuser;
+ 
+-- VISTA QUE MUESTRA EL NÚMERO DE CONEXIONES ACTUALES A ORACLE AGRUPADO POR APLICACIÓN QUE REALIZA LA CONEXIÓN
+
+SELECT program Aplicacion, COUNT(program) Numero_Sesiones
+  FROM v$session
+ GROUP BY program 
+ ORDER BY Numero_Sesiones DESC;
+ 
+-- VISTA QUE MUESTRA LOS USUARIOS DE ORACLE CONECTADOS Y EL NÚMERO DE SESIONES POR USUARIO
+
+SELECT username Usuario_Oracle, COUNT(username) Numero_Sesiones
+  FROM v$session
+ GROUP BY username
+ ORDER BY Numero_Sesiones DESC;
+ 
+CURSORES ABIERTOS POR USUARIO
+
+SELECT b.sid, a.username, b.value Cursores_Abiertos
+  FROM v$session a,
+       v$sesstat b,
+       v$statname c
+ WHERE c.name IN ('opened cursors current')
+   AND b.statistic# = c.statistic#
+   AND a.sid = b.sid 
+   AND a.username IS NOT NULL
+   AND b.value >0
+ ORDER BY 3;
