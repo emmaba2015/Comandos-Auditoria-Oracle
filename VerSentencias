@@ -1,0 +1,41 @@
+-- SENTENCIAS SQL COMPLETAS EJECUTADAS CON UN TEXTO DETERMINADO EN EL SQL
+
+SELECT c.sid,
+       d.piece,
+       c.serial#,
+       c.username,
+       d.sql_text 
+FROM v$session c, v$sqltext d 
+WHERE  c.sql_hash_value = d.hash_value 
+AND UPPER(d.sql_text) LIKE '%WHERE CAMPO LIKE%' 
+ORDER BY c.sid, d.piece999;
+ 
+-- UNA SENTENCIA SQL CONCRETA (FILTRADO POR SID)
+
+SELECT c.sid,
+       d.piece,
+       c.serial#,
+       c.username,
+       d.sql_text 
+  FROM v$session c, v$sqltext d 
+ WHERE c.sql_hash_value = d.hash_value 
+   AND sid = 105
+ ORDER BY c.sid, d.piece;
+ 
+-- ÚLTIMAS CONSULTAS SQL EJECUTADAS EN ORACLE Y USUARIO QUE LAS EJECUTÓ
+
+SELECT DISTINCT vs.sql_text, vs.sharable_mem, 
+       vs.persistent_mem, vs.runtime_mem,  vs.sorts,
+       vs.executions, vs.parse_calls, vs.module,  
+       vs.buffer_gets, vs.disk_reads, vs.version_count, 
+       vs.users_opening, vs.loads,  
+       to_char(to_date(vs.first_load_time,
+       'YYYY-MM-DD/HH24:MI:SS'),'MM/DD  HH24:MI:SS') first_load_time,  
+       rawtohex(vs.address) address, vs.hash_value hash_value , 
+       rows_processed  , vs.command_type, vs.parsing_user_id  , 
+       OPTIMIZER_MODE  , au.USERNAME parseuser  
+  FROM v$sqlarea vs , all_users au   
+ WHERE (parsing_user_id != 0)  
+   AND (au.user_id(+)=vs.parsing_user_id)  
+   AND (executions >= 1)
+ ORDER BY buffer_gets/executions DESC;
