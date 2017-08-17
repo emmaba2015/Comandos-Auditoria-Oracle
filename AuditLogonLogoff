@@ -1,0 +1,7 @@
+-- MOSTRAR DATOS DE AUDITORÍA DE LA BASE DE DATOS ORACLE (INICIO Y DESCONEXIÓN DE SESIONES)
+SELECT username,
+       action_name,
+       priv_used,
+       returncode
+FROM dba_audit_trail;
+  
