@@ -1,0 +1,17 @@
+set pages 999
+col c1 heading 'feature' format a45
+col c2 heading 'times|used' format 999,999
+col c3 heading 'first|used'
+col c4 heading 'used|now'
+
+select
+   parameter
+from
+   v$option
+where
+   value = 'TRUE'
+order by
+   parameter;
+   
+   
+   
